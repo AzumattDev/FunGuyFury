@@ -1,6 +1,6 @@
 ### FunGuy Fury is a mod that adds hallucinogenic mushrooms (Fly Agaric or Amanita Muscaria) to the game. When eaten, you will go into a primal viking rage doubling damage to creatures, player, and trees.
 
-<center><a href="https://i.imgur.com/nABnseC.png"><img src="https://i.imgur.com/nABnseC.png" href="https://i.imgur.com/nABnseC.png" width="300" height="300"></a></center>
+<div style="text-align: center;"><a href="https://i.imgur.com/nABnseC.png"><img src="https://i.imgur.com/nABnseC.png" href="https://i.imgur.com/nABnseC.png" width="300" height="300"></a></div>
 
 `This mod uses ServerSync internally. Settings can change live through the BepInEx Configuration manager (if you are in game) or by directly changing the file on the server. Can be installed on both the client (all clients) and the server to enforce configuration. Installation on the server is not needed, but will cause the synced values to be changeable. Note, not all configuration values are synced. Only the ones that matter.`
 
@@ -8,7 +8,7 @@
 
 # This mod was made at the request of the PlainsWalkers. Check out their [discord](https://discord.gg/cy4bSvNVX7)!
 
-<center><a href="https://discord.gg/cy4bSvNVX7"><img src="https://i.imgur.com/MlJ2G2j.png" href="https://i.imgur.com/MlJ2G2j.png" width="256" height="256"></a></center>
+<div style="text-align: center;"><a href="https://discord.gg/cy4bSvNVX7"><img src="https://i.imgur.com/MlJ2G2j.png" href="https://i.imgur.com/MlJ2G2j.png" width="256" height="256"></a></div>
 
 ## A Bit of History
 
@@ -130,9 +130,21 @@ For Questions or Comments, find me in the Odin Plus Team Discord or in mine:
 
 </details>
 
+## Special thanks!
+
+> A massive thanks to the following people for their help and support:
+> > `Gravebear`, thank you for tweaking the audio!
+>
+> > `Coemt`, thank you for helping test the mod!
+
 ### Changelog (Latest Listed First)
 
 ---
+<details>
+<summary><b>v1.0.1</b></summary>
+
+> - README fix
+</details>
 
 <details>
 <summary><b>v1.0.0</b></summary>

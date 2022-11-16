@@ -123,6 +123,7 @@
         </Content>
         <Content Include="README.md" />
         <Content Include="Thunderstore\FunGuy_Fury_v1.0.0.zip" />
+        <Content Include="Thunderstore\FunGuy_Fury_v1.0.1.zip" />
         <Content Include="Thunderstore\manifest.json" />
         <Content Include="Thunderstore\README.md" />
     </ItemGroup>
@@ -161,7 +162,7 @@
         </PropertyGroup>
     </Target>
     <Target Name="Copy" AfterTargets="GetAssemblyVersion">
-        <Exec Command="copy /Y &quot;$(TargetDir)$(AssemblyName).dll&quot; &quot;C:\Users\crypt\AppData\Roaming\r2modmanPlus-local\Valheim\profiles\setest\BepInEx\plugins\$(AssemblyName).dll&quot;" />
+        <!--<Exec Command="copy /Y &quot;$(TargetDir)$(AssemblyName).dll&quot; &quot;C:\Users\crypt\AppData\Roaming\r2modmanPlus-local\Valheim\profiles\setest\BepInEx\plugins\$(AssemblyName).dll&quot;" />-->
         <Exec Command="copy /Y &quot;Thunderstore\README.md&quot; &quot;README.md&quot;" />
     </Target>
     <Target Name="MakeThunderstorePackage" AfterTargets="Copy">
