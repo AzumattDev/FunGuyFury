@@ -1,6 +1,6 @@
 ﻿{
   "name": "FunGuy_Fury",
-  "version_number": "1.0.1",
+  "version_number": "1.0.2",
   "website_url": "https://github.com/AzumattDev/FunGuyFury",
   "description": "FunGuy Fury is a mod that adds hallucinogenic mushrooms (Fly Agaric or Amanita Muscaria) to the game. When eaten, you will go into a primal viking rage doubling damage to creatures, player, and trees.",
   "dependencies": [

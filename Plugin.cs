@@ -17,7 +17,7 @@ namespace FunGuy_Fury
     public class FunGuy_FuryPlugin : BaseUnityPlugin
     {
         internal const string ModName = "FunGuy_Fury";
-        internal const string ModVersion = "1.0.1";
+        internal const string ModVersion = "1.0.2";
         internal const string Author = "Azumatt";
         private const string ModGUID = Author + "." + ModName;
         private static string ConfigFileName = ModGUID + ".cfg";
@@ -104,6 +104,14 @@ namespace FunGuy_Fury
             flyagaricMushrom.Name.English("Fly Agaric Mushroom");
             flyagaricMushrom.Description.English("Amanita muscaria, commonly known as the fly agaric or fly amanita");
             flyagaricMushrom.Snapshot();
+            flyagaricMushrom.DropsFrom.Add("Draugr", 0.1f, 1, 2); // A Draugr has a 10% chance, to drop 1-2 mushrooms.
+            flyagaricMushrom.DropsFrom.Add("Draugr_Elite", 0.2f, 1, 2); // A Draugr_Elite has a 20% chance, to drop 1-2 mushrooms.
+            flyagaricMushrom.DropsFrom.Add("Draugr_Ranged", 0.1f, 1, 2); // A Draugr_Ranged has a 10% chance, to drop 1-2 mushrooms.
+            flyagaricMushrom.DropsFrom.Add("Dverger", 0.4f, 1, 2); // A Dverger has a 40% chance, to drop 1-2 mushrooms.
+            flyagaricMushrom.DropsFrom.Add("DvergerMage", 0.4f, 1, 2); // A DvergerMage has a 40% chance, to drop 1-2 mushrooms.
+            flyagaricMushrom.DropsFrom.Add("DvergerMageFire", 0.4f, 1, 2); // A DvergerMageFire has a 40% chance, to drop 1-2 mushrooms.
+            flyagaricMushrom.DropsFrom.Add("DvergerMageIce", 0.4f, 1, 2); // A DvergerMageIce has a 40% chance, to drop 1-2 mushrooms.
+            flyagaricMushrom.DropsFrom.Add("DvergerMageSupport", 0.4f, 1, 2); // A DvergerMageSupport has a 40% chance, to drop 1-2 mushrooms.
 
             CustomSE beserkSE = new("Berserk");
             beserkSE.Name.English("Berserk");

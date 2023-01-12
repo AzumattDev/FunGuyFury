@@ -133,13 +133,21 @@ For Questions or Comments, find me in the Odin Plus Team Discord or in mine:
 ## Special thanks!
 
 > A massive thanks to the following people for their help and support:
-> > `Gravebear`, thank you for tweaking the audio!
+> 
+> `Gravebear`, thank you for tweaking the audio!
 >
-> > `Coemt`, thank you for helping test the mod!
+> `Coemt`, thank you for helping test the mod!
 
 ### Changelog (Latest Listed First)
 
 ---
+<details>
+<summary><b>v1.0.2</b></summary>
+
+> - Some spawning fixes.
+> - Update to Latest ItemManager
+</details>
+
 <details>
 <summary><b>v1.0.1</b></summary>
 

@@ -68,6 +68,9 @@
         <Reference Include="BepInEx, Version=5.4.19.0, Culture=neutral, PublicKeyToken=null">
             <HintPath>$(GamePath)\BepInEx\core\BepInEx.dll</HintPath>
         </Reference>
+        <Reference Include="ItemManager">
+          <HintPath>Libs\ItemManager.dll</HintPath>
+        </Reference>
         <Reference Include="ServerSync, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
             <HintPath>Libs\ServerSync.dll</HintPath>
         </Reference>
@@ -118,6 +121,9 @@
         <Content Include="assets\battlecry.ogg" />
         <Content Include="assets\battlecry_female.ogg" />
         <Content Include="ILRepack.targets" />
+        <Content Include="Libs\ItemManager.dll">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
         <Content Include="Libs\ServerSync.dll">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
@@ -145,7 +151,7 @@
     <Target Name="AfterBuild">
     </Target>
     -->
-    <Target Name="GetAssemblyVersion" AfterTargets="ILRepack">
+    <Target Name="GetAssemblyVersion" AfterTargets="ILRepacker">
         <GetAssemblyIdentity AssemblyFiles="$(TargetPath)">
             <Output TaskParameter="Assemblies" ItemName="Targets" />
         </GetAssemblyIdentity>
@@ -161,11 +167,13 @@
             <PackageDir>Thunderstore\$(PackageName)</PackageDir>
         </PropertyGroup>
     </Target>
-    <Target Name="Copy" AfterTargets="GetAssemblyVersion">
-        <!--<Exec Command="copy /Y &quot;$(TargetDir)$(AssemblyName).dll&quot; &quot;C:\Users\crypt\AppData\Roaming\r2modmanPlus-local\Valheim\profiles\setest\BepInEx\plugins\$(AssemblyName).dll&quot;" />-->
-        <Exec Command="copy /Y &quot;Thunderstore\README.md&quot; &quot;README.md&quot;" />
+    <Target Name="CopyOutputDLL" AfterTargets="GetAssemblyVersion">
+        <Copy SourceFiles="$(TargetDir)$(AssemblyName).dll" DestinationFolder="C:\Users\crypt\AppData\Roaming\r2modmanPlus-local\Valheim\profiles\PTB\BepInEx\plugins\_TESTINGMODS" OverwriteReadOnlyFiles="true" />
     </Target>
-    <Target Name="MakeThunderstorePackage" AfterTargets="Copy">
+    <Target Name="CopyREADME" AfterTargets="CopyOutputDLL">
+        <Copy SourceFiles="README.md" DestinationFolder="Thunderstore" OverwriteReadOnlyFiles="true" />
+    </Target>
+    <Target Name="MakeThunderstorePackage" AfterTargets="CopyREADME">
         <ItemGroup>
             <PackageFiles Include="$(TargetDir)$(AssemblyName).dll; Thunderstore\README.md; Thunderstore\manifest.json; Thunderstore\icon.png;" />
         </ItemGroup>
