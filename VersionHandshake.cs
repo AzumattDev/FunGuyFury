@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
+using System.Security.Cryptography;
+using System.Text;
 using HarmonyLib;
 
 namespace FunGuy_Fury
@@ -11,13 +15,13 @@ namespace FunGuy_Fury
         {
             // Register version check call
             FunGuy_FuryPlugin.FunGuyFuryLogger.LogDebug("Registering version RPC handler");
-            peer.m_rpc.Register($"{FunGuy_FuryPlugin.ModName}_VersionCheck",
-                new Action<ZRpc, ZPackage>(RpcHandlers.RPC_FunGuy_Fury_Version));
+            peer.m_rpc.Register($"{FunGuy_FuryPlugin.ModName}_VersionCheck", new Action<ZRpc, ZPackage>(RpcHandlers.RPC_FunGuy_Fury_Version));
 
             // Make calls to check versions
-            FunGuy_FuryPlugin.FunGuyFuryLogger.LogInfo("Invoking version check");
+            FunGuy_FuryPlugin.FunGuyFuryLogger.LogDebug("Invoking version check");
             ZPackage zpackage = new();
             zpackage.Write(FunGuy_FuryPlugin.ModVersion);
+            zpackage.Write(RpcHandlers.ComputeHashForMod().Replace("-", ""));
             peer.m_rpc.Invoke($"{FunGuy_FuryPlugin.ModName}_VersionCheck", zpackage);
         }
     }
@@ -29,16 +33,14 @@ namespace FunGuy_Fury
         {
             if (!__instance.IsServer() || RpcHandlers.ValidatedPeers.Contains(rpc)) return true;
             // Disconnect peer if they didn't send mod version at all
-            FunGuy_FuryPlugin.FunGuyFuryLogger.LogWarning(
-                $"Peer ({rpc.m_socket.GetHostName()}) never sent version or couldn't due to previous disconnect, disconnecting");
+            FunGuy_FuryPlugin.FunGuyFuryLogger.LogWarning($"Peer ({rpc.m_socket.GetHostName()}) never sent version or couldn't due to previous disconnect, disconnecting");
             rpc.Invoke("Error", 3);
             return false; // Prevent calling underlying method
         }
 
         private static void Postfix(ZNet __instance)
         {
-            ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.instance.GetServerPeerID(), "RequestAdminSync",
-                new ZPackage());
+            ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.instance.GetServerPeerID(), $"{FunGuy_FuryPlugin.ModName}RequestAdminSync", new ZPackage());
         }
     }
 
@@ -76,17 +78,18 @@ namespace FunGuy_Fury
         public static void RPC_FunGuy_Fury_Version(ZRpc rpc, ZPackage pkg)
         {
             string? version = pkg.ReadString();
+            string? hash = pkg.ReadString();
+
+            var hashForAssembly = ComputeHashForMod().Replace("-", "");
             FunGuy_FuryPlugin.FunGuyFuryLogger.LogInfo("Version check, local: " +
-                                                        FunGuy_FuryPlugin.ModVersion +
-                                                        ",  remote: " + version);
-            if (version != FunGuy_FuryPlugin.ModVersion)
+                                                       FunGuy_FuryPlugin.ModVersion +
+                                                       ",  remote: " + version);
+            if (hash != hashForAssembly || version != FunGuy_FuryPlugin.ModVersion)
             {
-                FunGuy_FuryPlugin.ConnectionError =
-                    $"{FunGuy_FuryPlugin.ModName} Installed: {FunGuy_FuryPlugin.ModVersion}\n Needed: {version}";
+                FunGuy_FuryPlugin.ConnectionError = $"{FunGuy_FuryPlugin.ModName} Installed: {FunGuy_FuryPlugin.ModVersion} {hashForAssembly}\n Needed: {version} {hash}";
                 if (!ZNet.instance.IsServer()) return;
                 // Different versions - force disconnect client from server
-                FunGuy_FuryPlugin.FunGuyFuryLogger.LogWarning(
-                    $"Peer ({rpc.m_socket.GetHostName()}) has incompatible version, disconnecting");
+                FunGuy_FuryPlugin.FunGuyFuryLogger.LogWarning($"Peer ({rpc.m_socket.GetHostName()}) has incompatible version, disconnecting...");
                 rpc.Invoke("Error", 3);
             }
             else
@@ -94,7 +97,8 @@ namespace FunGuy_Fury
                 if (!ZNet.instance.IsServer())
                 {
                     // Enable mod on client if versions match
-                    FunGuy_FuryPlugin.FunGuyFuryLogger.LogInfo("Received same version from server!");
+                    FunGuy_FuryPlugin.FunGuyFuryLogger.LogInfo(
+                        "Received same version from server!");
                 }
                 else
                 {
@@ -104,6 +108,21 @@ namespace FunGuy_Fury
                     ValidatedPeers.Add(rpc);
                 }
             }
+        }
+
+        public static string ComputeHashForMod()
+        {
+            using SHA256 sha256Hash = SHA256.Create();
+            // ComputeHash - returns byte array  
+            byte[] bytes = sha256Hash.ComputeHash(File.ReadAllBytes(Assembly.GetExecutingAssembly().Location));
+            // Convert byte array to a string   
+            StringBuilder builder = new();
+            foreach (byte b in bytes)
+            {
+                builder.Append(b.ToString("X2"));
+            }
+
+            return builder.ToString();
         }
     }
 }

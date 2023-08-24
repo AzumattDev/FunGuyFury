@@ -2,6 +2,12 @@
 
 ---
 <details>
+<summary><b>v1.0.4</b></summary>
+
+> - Update for the latest Valheim version. (0.217.14 - Hildir Update)
+</details>
+
+<details>
 <summary><b>v1.0.3</b></summary>
 
 > - Update for the latest Valheim version.

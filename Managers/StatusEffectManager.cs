@@ -4,10 +4,13 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Reflection.Emit;
+using System.Text.RegularExpressions;
 using BepInEx;
 using BepInEx.Configuration;
 using FunGuy_Fury.Patches;
 using HarmonyLib;
+using ItemManager;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -45,7 +48,7 @@ public class CustomSE
     public EffectType Type;
 
     private string _folderName = "icons";
-    private AssetBundle? _assetBundle;
+    private AssetBundle _assetBundle = null!;
 
     [Description("Sets the icon for the StatusEffect. Must be 64x64")]
     public string? Icon
@@ -91,6 +94,7 @@ public class CustomSE
             return _name;
         }
     }
+
     public static class LocalizationCache
     {
         private static readonly Dictionary<string, Localization> localizations = new();
@@ -101,6 +105,7 @@ public class CustomSE
             {
                 localizations.Remove(oldValue);
             }
+
             if (!localizations.ContainsKey(language))
             {
                 localizations.Add(language, __instance);
@@ -113,11 +118,13 @@ public class CustomSE
             {
                 return localization;
             }
+
             localization = new Localization();
             if (language is not null)
             {
                 localization.SetupLanguage(language);
             }
+
             return localization;
         }
     }
@@ -453,8 +460,7 @@ public static class EffectManager
             }
             catch (Exception e)
             {
-                Debug.LogWarning(
-                    $"BROKE {e}");
+                Debug.LogWarning($"BROKE : {e}");
             }
         }
     }
