@@ -2,6 +2,12 @@
 
 ---
 <details>
+<summary><b>v1.0.6</b></summary>
+
+> - Courtesy Update for Valheim 0.217.46. Just bumping the version and updating the last updated date. Nothing to see here.
+</details>
+
+<details>
 <summary><b>v1.0.5</b></summary>
 
 > - Update for the latest Valheim version. (0.217.22)
