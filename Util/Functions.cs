@@ -107,7 +107,7 @@ public class Functions
     {
         Character attacker = hit.GetAttacker();
         // If the player has the beserker status effect, increase damage by a factor defined in the config DamageBoost
-        if (attacker == null || !attacker.IsPlayer() || !attacker.m_seman.HaveStatusEffect("Berserk")) return;
+        if (attacker == null || !attacker.IsPlayer() || !attacker.m_seman.HaveStatusEffect("Berserk".GetStableHashCode())) return;
         hit.ApplyModifier(FunGuy_FuryPlugin.DamageBoost.Value);
     }
 }
