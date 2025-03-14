@@ -17,7 +17,7 @@ namespace FunGuy_Fury
     public class FunGuy_FuryPlugin : BaseUnityPlugin
     {
         internal const string ModName = "FunGuy_Fury";
-        internal const string ModVersion = "1.0.7";
+        internal const string ModVersion = "1.0.8";
         internal const string Author = "Azumatt";
         private const string ModGUID = Author + "." + ModName;
         private static string ConfigFileName = ModGUID + ".cfg";

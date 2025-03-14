@@ -400,7 +400,7 @@ public static class EffectManager
             }
         }
 
-        __instance.UpdateItemHashes();
+        __instance.UpdateRegisters();
     }
 
     [HarmonyPriority(Priority.VeryHigh)]

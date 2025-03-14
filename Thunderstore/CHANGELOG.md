@@ -2,6 +2,12 @@
 
 ---
 <details>
+<summary><b>v1.0.8</b></summary>
+
+> - Update ServerSync, ItemManager, and StatusEffectsManager to the latest versions.
+</details>
+
+<details>
 <summary><b>v1.0.7</b></summary>
 
 > - Update for Ashlands.
